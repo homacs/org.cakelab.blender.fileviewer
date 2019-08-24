@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Java .Blend File Debugger</title>
+<title>${project.title}</title>
 </head>
 <body>
-<h1  style="text-align: center">Java .Blend File Debugger</h1>
+<h1  style="text-align: center">${project.title}</h1>
 <h2  style="text-align: center"><em>Debug Blender Model Files and Understand its Structure</em></h2>
 <br/>
 <p style="text-align: center"><b>${project.version}</b></p>
@@ -13,8 +13,15 @@
 <br/>
 <p style="text-align: center">${system.date}</p>
 <p style="text-align: center">Holger Machens</p>
+
+<br/>
+<p style="text-align: center"><img src="img/screenshot.png"/></p>
 <p>
-This is a so-called file debugger used to analyse the data of a Blender 3D model stored in a file with extension <code>.blend</code>.
+This application displays the content of a .blend file in terms of data structures 
+and associated source code documentation. It helps to analyse the data of a <a href="http://blender.org">Blender</a> 
+3D model, in order to understand its structure. It uses a 
+<a href="http://homac.cakelab.org/projects/JavaBlend">Java .Blend</a> 
+DNA library to access the data.
 </p>
 
 <h2>Features</h2>
@@ -24,41 +31,37 @@ This is a so-called file debugger used to analyse the data of a Blender 3D model
 <dt>Display of File Header</dt>
 <dd>Header attributes which are displayed: File location, byte order, address width and version.</dd>
 <dt>Listing of Struct Types</dt>
-<dd>The DNA of a file is read, all struct types are listed and documentation can be displayed.</dd>
+<dd>The DNA of a file is read, all struct types are listed and associated documentation can be reviewed.</dd>
 <dt>Listing of Blocks</dt>
 <dd>All blocks of a file are listed, each block in a file can be displayed with all header attributes and available documentation.</dd>
-</dl>
-
-
-<h3>In Progress</h3>
-<dl>
-<dt>Separated Editors</dt>
-<dd>Java .Blend external source code documentation displayed for selected structs.</dd>
-</dl>
-<dl>
-<dt>Struct Documentation</dt>
-<dd>Java .Blend external source code documentation displayed for selected structs.</dd>
+<dt>Display of Library Content</dt>
+<dd>View its actual data in terms of data structures and their values.</dd>
+<dt>Type Casting of Pointers</dt>
+<dd>Data, referenced by void pointers can be statically casted to proper types (see folder typecasts).</dd>
 </dl>
 
 
 <h3>Planned</h3>
 <dl>
-<dt>Hex Viewer</dt>
-<dd>A viewer, displaying the raw file content in hexadecimal notation.</dd>
-<dt>Struct Documentation Editable</dt>
-<dd>Java .Blend external source code documentation displayed for selected structs .</dd>
+<dt>Documentation Editing</dt>
+<dd>Allow editing of the displayed source code documentation.</dd>
+<dt>Manual Type Casting</dt>
+<dd>A lot of data is referenced by void pointers. Users may want 
+to cast these to proper struct types manually.</dd>
 </dl>
 
+<h2>Download</h2>
+<ul>
+<li><a href="${project.downloads.source}">source code (libs incl.)</a></li>
+<li><a href="https://homacs@github.org/homacs/org.cakelab.blender.fileviewer">github</a></li>
+</ul>
 
 
 <h2>Licensing</h2>
 <p>
 This work is published under <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPL v3.0</a>.
 </p>
-<p>
-This work includes a copy of <a href="http://lwjgl.org">LWJGL 3</a> which is licensed under
-<a href="https://www.lwjgl.org/license">"a BSD license"</a>.
-</p>
+
 
 </body>
 </html>
