@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.cakelab.json"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.cakelab.blender.dna"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.cakelab.jdoxml"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.cakelab.blender.io"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
