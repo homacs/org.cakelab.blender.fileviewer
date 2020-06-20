@@ -60,7 +60,9 @@ public class FileDebugger extends JFrame {
 		
 		setDocRoot(docfolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Java .Blend File Debugger");
+		
+		
+		setTitle("Java .Blend File Debugger -- (" + MainLib.BLENDER_MINVERSION_STRING + "," + MainLib.BLENDER_VERSION_STRING + ")");
 		
 		Dimension mainDims = new Dimension(640,480);
 		
