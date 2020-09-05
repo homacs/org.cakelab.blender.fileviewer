@@ -315,7 +315,7 @@ public class FileDebugger extends JFrame {
 	
 	public static void main(String[] args) {
 		FileDebugger debugger = new FileDebugger();
-		debugger.setDocRoot(new File("/home/homac/repos/git/github/homacs/JavaBlendDocs/resources/dnadoc"));
+		debugger.setDocRoot(new File("/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.dnadoc/resources/dnadoc"));
 		debugger.openBlenderFile(new File("/home/homac/repos/git/cakelab.org/playground/org.cakelab.blender.viewer/examples/cube.blend"));
 	}
 
