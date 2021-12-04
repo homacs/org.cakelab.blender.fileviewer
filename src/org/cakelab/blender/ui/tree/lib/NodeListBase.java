@@ -1,12 +1,9 @@
 package org.cakelab.blender.ui.tree.lib;
 
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.tree.MutableTreeNode;
 
-import org.blender.dna.CollectionChild;
-import org.blender.dna.CollectionObject;
 import org.blender.dna.ListBase;
 import org.cakelab.blender.TypeCastProvider;
 import org.cakelab.blender.nio.CPointer;
@@ -37,23 +34,6 @@ public class NodeListBase extends NodeLibEntry {
 	}
 	
 	private Class<?> getTypeCast(Class<?> parenttype, String attrib) {
-		/*
-		String struct = parenttype.getSimpleName();
-		if (struct.equals("Collection")) {
-			if (attrib.equals("children")) {
-				return CollectionChild.class;
-			} else if (attrib.equals("parents")) {
-				return Collection.class;
-			} else if (attrib.equals("gobject")) {
-				return CollectionObject.class;
-			}
-		} else {
-			if (attrib.equals("base")) {
-				return parenttype;
-			}
-		}
-		return null;
-		*/
 		return typeCastProvider.getTypeCast(TypeCastProvider.Category.ListBase, parenttype, attrib);
 	}
 

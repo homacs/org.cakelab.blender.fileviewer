@@ -3,8 +3,10 @@ package org.cakelab.blender;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -21,7 +23,8 @@ public class TypeCastProvider {
 	private String packageName;
 	private ClassLoader classLoader;
 
-	private HashMap<String, Class<?>> mapListBase = new HashMap<String, Class<?>>();
+	
+	private Map<String, Map<String, Class<?>>> mappings = new HashMap<>();
 	
 	
 	public TypeCastProvider(String packageName) {
@@ -32,16 +35,27 @@ public class TypeCastProvider {
 	
 	
 	public void load(File folder) throws IOException {
-		load(mapListBase, folder, Category.ListBase);
-		// TODO: more to come
+		File[] files = folder.listFiles(new FileFilter() {
+
+			@Override
+			public boolean accept(File f) {
+				return (f.isFile() && f.getName().endsWith(".properties"));
+			}
+			
+		});
+		
+		for (File file : files) {
+			String category = file.getName().replaceAll("\\.properties", "");
+			Map<String, Class<?>> map = new HashMap<>();
+			load(map, file);
+			mappings.put(category, map);
+		}
 	}
 	
-	private void load(HashMap<String, Class<?>> map, File folder, Category category) throws IOException {
-		File file = new File(folder, category.name() + ".txt");
+	private void load(Map<String, Class<?>> map, File file) throws IOException {
 		Properties content = new Properties();
 		FileInputStream in = new FileInputStream(file);
 		content.load(in);
-
 		
 		for (Entry<Object, Object> entry : content.entrySet()) {
 			String name = entry.getKey().toString();
@@ -57,7 +71,7 @@ public class TypeCastProvider {
 	}
 	
 
-	public static File getMatchingFolder(File parent, FileVersionInfo versionInfo) {
+	public static File getMatchingFolder(File parent, FileVersionInfo versionInfo) throws FileNotFoundException {
 		File[] folders = parent.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
@@ -81,19 +95,21 @@ public class TypeCastProvider {
 				}
 			}
 		}
+
+		if (subfolder == null) 
+			throw new FileNotFoundException("No folder for version " + versionInfo.getVersion() + " found in path '" + parent);
+
 		return subfolder;
 	}
 
 
 
 	public Class<?> getTypeCast(Category category, Class<?> parenttype, String attrib) {
-		switch(category) {
-		case ListBase:
-			return mapListBase.get(parenttype.getSimpleName() + "." + attrib);
-		default:
-			return null;
-		
+		Map<String, Class<?>> map = mappings.get(category.name());
+		if (map != null) {
+			return map.get(parenttype.getSimpleName() + "." + attrib);
 		}
+		return null;
 	}
 
 
