@@ -52,7 +52,7 @@ public class TreeModel extends DefaultTreeModel {
 
 	private TreeNode findFirst(TreeNode parent, Condition condition) {
 		@SuppressWarnings("unchecked")
-		Enumeration<TreeNode> children = parent.children();
+		Enumeration<TreeNode> children = (Enumeration<TreeNode>) parent.children();
 		while (children.hasMoreElements()) {
 			TreeNode child = children.nextElement();
 			if (condition.valid(child)) {

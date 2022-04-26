@@ -16,23 +16,25 @@ public abstract class LazyLoadingTreeNode extends DefaultMutableTreeNode {
 		super(userObject);
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void lazyLoadChildren() {
-		if (!loaded) {
-            if (children == null) {
-                children = new Vector<MutableTreeNode>();
-            }
-            try {
-            	loadChildren((Vector<MutableTreeNode>)children);
-            	// make sure parent is set for all children
-            	for (Object n : children) {
-            		((MutableTreeNode)n).setParent(this);
-            	}
-    			loaded = true;
-            } catch (Throwable t) {
-            	// TODO: report error
-            	System.err.println(t);
-            }
+		if (!this.loaded) {
+			if (this.children == null) {
+				this.children = new Vector<>();
+			}
+			try {
+				Vector<MutableTreeNode> vectorChildren = new Vector<>();
+				this.loadChildren(vectorChildren);
+				// make sure parent is set for all children
+				for (MutableTreeNode n : vectorChildren) {
+					n.setParent(this);
+					this.children.add(n);
+				}
+				this.loaded = true;
+			}
+			catch (Throwable t) {
+				// TODO: report error
+				System.err.println(t);
+			}
 		}
 	}
 
