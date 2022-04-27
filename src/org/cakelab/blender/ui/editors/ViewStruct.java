@@ -23,9 +23,28 @@ public class ViewStruct extends HtmlViewer {
 	
 	
 	public void show(CMetaModel cMetaModel, CStruct struct, DocumentationProvider docs) {
-		String html = new String();
-		html += "<html><head/><body>";
+		String html = beginHtml();
 
+		html += getStructDoc(struct, docs);
+
+		endHtml(html);
+	}
+
+	
+	protected void endHtml(String html) {
+		html += "</body></html>";
+		setContentType("text/html");
+		setText(html.toString());
+	}
+
+
+	protected String beginHtml() {
+		return "<html><head/><body>";
+	}
+
+
+	public String getStructDoc(CStruct struct, DocumentationProvider docs) {
+		String html = new String();
 		html += h1("Type " + struct.getSignature());
 		html += p("DNA index: " + struct.getSdnaIndex());
 		html += p(decodeDoc(docs.getStructDoc(struct.getSignature())));
@@ -33,28 +52,8 @@ public class ViewStruct extends HtmlViewer {
 		html += "struct " + struct.getSignature() + " {";
 		html += "<table>";
 		for (CField e : struct.getFields()) {
-			
 			String type = e.getType().getSignature();
-			CType referenced  = e.getType();
-			if (referenced == null) System.err.println("incomplete type");
-			while (referenced.getReferencedType() != null) {
-				referenced = referenced.getReferencedType();
-			}
-			switch (referenced.getKind()) {
-			case TYPE_ARRAY:
-			case TYPE_FUNCTION_POINTER:
-			case TYPE_POINTER:
-				System.err.println("something is wrong");
-			case TYPE_SCALAR:
-			case TYPE_VOID:
-				// no link available
-				referenced = null;
-				break;
-			case TYPE_STRUCT:
-				break;
-			default:
-				break;
-			}
+			CType referenced = getReferencedType(e);
 
 			if (referenced != null) {
 				type = type.replaceAll(referenced.getSignature(), "<a href=\"dna://" + referenced.getSignature() + "\">" + referenced.getSignature() + "</a>");
@@ -63,11 +62,39 @@ public class ViewStruct extends HtmlViewer {
 		}
 		html += "</table>";
 		html += "};";
-
-		html += "</body></html>";
-		setContentType("text/html");
-		setText(html.toString());
+		return html;
 	}
+	
+	
+	private CType getReferencedType(CField e) {
+		CType referenced  = e.getType();
+		if (referenced == null) {
+			System.err.println("incomplete type");
+		}
+		while (referenced.getReferencedType() != null) {
+			referenced = referenced.getReferencedType();
+		}
+		switch (referenced.getKind()) {
+		case TYPE_ARRAY:
+			System.err.println("ERROR: resolved referenced type is an array: " + referenced.getSignature());
+			return null;
+		case TYPE_POINTER:
+			System.err.println("ERROR: resolved referenced type is a pointer: " + referenced.getSignature());
+			return null;
+		case TYPE_FUNCTION_POINTER:
+		case TYPE_SCALAR:
+		case TYPE_VOID:
+			// there is no link available for these type kinds.
+			referenced = null;
+			break;
+		case TYPE_STRUCT:
+			break;
+		default:
+			break;
+		}
+		return referenced;
+	}
+
 
 	private String decodeDoc(String jdoc) {
 		return jdoc.replaceAll("\\{@link ([^\\}]*)\\}", "<a href=\"dna://$1\">$1</a>");
