@@ -18,7 +18,6 @@ public class LazyLoadingTree extends JTree {
 
 	private TreeModel model;
 	private DefaultMutableTreeNode root;
-	private TypeCastProvider typeCastProvider;
 
 	public LazyLoadingTree() {
 		setModel(null);
@@ -33,7 +32,6 @@ public class LazyLoadingTree extends JTree {
 	}
 
 	public void openFile(BlenderFile blend, DocumentationProvider docs, TypeCastProvider typeCastProvider) {
-		this.typeCastProvider = typeCastProvider;
 		NodeBlendFile fileNode = new NodeBlendFile(blend, docs, typeCastProvider);
 		root.add(fileNode);
 		setModel(model);
