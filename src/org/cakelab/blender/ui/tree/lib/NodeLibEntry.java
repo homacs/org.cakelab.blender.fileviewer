@@ -8,6 +8,7 @@ import javax.swing.tree.MutableTreeNode;
 
 import org.blender.dna.ListBase;
 import org.cakelab.blender.TypeCastProvider;
+import org.cakelab.blender.type.JavaMapping;
 import org.cakelab.blender.ui.tree.generic.LazyLoadingTreeNode;
 
 @SuppressWarnings("serial")
@@ -22,6 +23,14 @@ public class NodeLibEntry  extends LazyLoadingTreeNode {
 		this.type = type;
 		this.name = name;
 		this.typeCastProvider = typeCastProvider;
+	}
+	
+	public Class<?> getType() {
+		return type;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -50,7 +59,6 @@ public class NodeLibEntry  extends LazyLoadingTreeNode {
 		
 	}
 
-	
 	protected void addChild(Vector<MutableTreeNode> children, Class<?> type, String name, Object value) {
 		NodeLibEntry child;
 		if (value != null) type = value.getClass();
@@ -75,34 +83,17 @@ public class NodeLibEntry  extends LazyLoadingTreeNode {
 	public String toString() {
 		Object value = getEntry();
 		if (value == null) {
-			return type.getSimpleName() + " " + name + " = null";
+			return type.getSimpleName() + " " + getName() + " = null";
 		} else if (isScalar(type)) {
-			return type.getSimpleName() + " " + name + " = " + value.toString();
+			return type.getSimpleName() + " " + getName() + " = " + value.toString();
 		} else {
-			return type.getSimpleName() + " " + name;
+			return type.getSimpleName() + " " + getName();
 		}
 	}
 
 	private boolean isScalar(Class<?> type) {
-		return (
-				type.equals(byte.class)
-				|| type.equals(char.class)
-				|| type.equals(short.class)
-				|| type.equals(int.class)
-				|| type.equals(long.class)
-				|| type.equals(float.class)
-				|| type.equals(double.class)
-				|| type.equals(boolean.class)
-				|| type.equals(Byte.class)
-				|| type.equals(Character.class)
-				|| type.equals(Short.class)
-				|| type.equals(Integer.class)
-				|| type.equals(Long.class)
-				|| type.equals(Float.class)
-				|| type.equals(Double.class)
-				|| type.equals(Boolean.class)
-				|| type.equals(String.class)
-				);
+		return JavaMapping.isScalar(type) || type.equals(String.class);
 	}
 
+	
 }

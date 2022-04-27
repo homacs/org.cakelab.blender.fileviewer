@@ -11,6 +11,13 @@ import java.util.Properties;
 import org.cakelab.blender.io.FileVersionInfo;
 import org.cakelab.blender.io.FileHeader.Version;
 
+/**
+ * Determins type cast from a properties files
+ * in stored in directory "$(pwd)/typecasts".
+ * 
+ * @author homac
+ *
+ */
 public class TypeCastProvider {
 	
 	public static enum Category {
@@ -78,6 +85,7 @@ public class TypeCastProvider {
 					}
 				} catch (NumberFormatException e) {
 					// not a version directory --> ignore
+					System.err.println("ignored typecast directory: " + folder.getName());
 				}
 			}
 		}

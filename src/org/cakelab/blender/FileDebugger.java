@@ -18,7 +18,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 
 import org.blender.dna.BlenderObject;
 import org.blender.utils.MainLib;
@@ -29,9 +28,7 @@ import org.cakelab.blender.io.BlenderFile;
 import org.cakelab.blender.io.FileVersionInfo;
 import org.cakelab.blender.ui.EditorPanel;
 import org.cakelab.blender.ui.FileChooser;
-import org.cakelab.blender.ui.tree.NodeBlendFile;
 import org.cakelab.blender.ui.tree.dna.NodeDNAModel;
-import org.cakelab.blender.ui.tree.dna.NodeStruct;
 import org.cakelab.blender.ui.tree.generic.LazyLoadingTree;
 import org.cakelab.blender.ui.tree.generic.TreeModel;
 import org.cakelab.blender.ui.tree.generic.TreeModel.TreePathCondition;
