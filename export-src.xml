@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="package" name="Package Sources for JavaBlendFileViewer">
 	<target name="init">
-		<property name="version" value="0.0.11"/>
-		<property name="repobasedir" value="${user.home}/repos/git/cakelab.org/playground"/>
+		<property name="version" value="dev"/>
 		<property name="web.downloads" value="${user.home}/tmp/public_html/projects/JavaBlendFileViewer/downloads"/>
+		<property name="repobasedir" value="${basedir}/.."/>
 		<property name="project.name" value="org.cakelab.blender.fileviewer"/>
 		<property name="file.name" value="${project.name}-src-${version}"/>
         <property name="workdir" value="${java.io.tmpdir}/${file.name}"/>
