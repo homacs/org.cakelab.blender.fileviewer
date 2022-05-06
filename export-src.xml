@@ -6,7 +6,8 @@
 		<property name="repobasedir" value="${basedir}/.."/>
 		<property name="project.name" value="org.cakelab.blender.fileviewer"/>
 		<property name="file.name" value="${project.name}-src-${version}"/>
-        <property name="workdir" value="${java.io.tmpdir}/${file.name}"/>
+        <property name="workdir" value="${java.io.tmpdir}"/>
+        <property name="packdir" value="${workdir}/${file.name}"/>
 		<property name="zipfile" value="${web.downloads}/${file.name}.zip"/>
 		<delete failonerror="false" includeEmptyDirs="true">
 			<fileset dir="${workdir}"/>
@@ -15,7 +16,7 @@
         <mkdir dir="${workdir}"/>
 	</target>
 	<target name="copy-resources" depends="init">
-		<copy todir="${workdir}">
+		<copy todir="${packdir}">
             <fileset dir="${repobasedir}/${project.name}">
             	<include name="src/**/*"/>
 				<include name="typecasts/**/*"/>
@@ -25,28 +26,34 @@
 				<exclude name="projexp.cfg"/>
             </fileset>
 		</copy>
-		<copy todir="${workdir}/src-dna">
+		<copy todir="${packdir}/src-dna">
             <fileset dir="${repobasedir}/org.cakelab.blender.dna/src">
             	<include name="**/*"/>
             </fileset>
 		</copy>
-		<copy todir="${workdir}/src-io">
+		<copy todir="${packdir}/src-io">
             <fileset dir="${repobasedir}/org.cakelab.blender.io/src">
             	<exclude name="org/cakelab/blender/doc/extract/**/*"/>
             	<include name="**/*"/>
             </fileset>
 		</copy>
-		<copy todir="${workdir}/src-json">
+		<copy todir="${packdir}/src-json">
             <fileset dir="${repobasedir}/org.cakelab.json/src">
+            	<include name="**/*"/>
+            </fileset>
+		</copy>
+		<copy todir="${packdir}/src-jdoxml">
+            <fileset dir="${repobasedir}/org.cakelab.jdoxml/src">
             	<include name="**/*"/>
             </fileset>
 		</copy>
 	</target>
 	<target name="package" depends="init,copy-resources">
 		<zip destfile="${zipfile}" 
-			basedir="${java.io.tmpdir}"
+			basedir="${workdir}"
 			includes="${file.name}/**"
-			update="true">
+			update="true"
+			whenempty="fail">
 		</zip>
 	</target>
 </project>
