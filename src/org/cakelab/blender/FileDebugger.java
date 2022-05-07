@@ -113,12 +113,12 @@ public class FileDebugger extends JFrame {
 						new File(docfolder, "/dnasrc/doc.json")
 				};
 			}
-			docs = new DocGenerator(docfiles, debug);
+			docs = new DocGenerator(docfiles, blend.getMetaModel(), debug);
 		} catch (IOException | JSONException e) {
 			onError(e.getMessage());
 			try {
 				// Fallback to empty doc
-				docs = new DocGenerator(new File[0], debug);
+				docs = new DocGenerator(new File[0], blend.getMetaModel(), debug);
 			} catch (IOException | JSONException e1) {
 				onError("internal error while trying to load fallback doc provider: " + e.getMessage());
 				docs = null;
