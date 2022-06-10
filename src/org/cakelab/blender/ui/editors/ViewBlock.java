@@ -49,6 +49,8 @@ public class ViewBlock extends HtmlViewer {
 			description = "Constraint.";
 		} else if (block.header.getCode().equals(BlockCodes.ID_CU)) {
 			description = "Curve.";
+		} else if (block.header.getCode().equals(BlockCodes.ID_CV)) {
+			description = "Curves.";
 		} else if (block.header.getCode().equals(BlockCodes.ID_DATA)) {
 			description = "Block contains data which belongs to a preceeding block.";
 		} else if (block.header.getCode().equals(BlockCodes.ID_DNA1)) {
