@@ -31,9 +31,13 @@
             	<include name="**/*"/>
             </fileset>
 		</copy>
+		<copy todir="${packdir}/src-gen">
+            <fileset dir="${repobasedir}/org.cakelab.blender.io.generator/src">
+            	<include name="**/*"/>
+            </fileset>
+		</copy>
 		<copy todir="${packdir}/src-io">
             <fileset dir="${repobasedir}/org.cakelab.blender.io/src">
-            	<exclude name="org/cakelab/blender/doc/extract/**/*"/>
             	<include name="**/*"/>
             </fileset>
 		</copy>
