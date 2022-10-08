@@ -1,12 +1,9 @@
 package org.cakelab.blender.ui.tree.lib;
 
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.swing.tree.MutableTreeNode;
 
-import org.blender.dna.CollectionChild;
-import org.blender.dna.CollectionObject;
 import org.blender.dna.ListBase;
 import org.cakelab.blender.TypeCastProvider;
 import org.cakelab.blender.nio.CPointer;
