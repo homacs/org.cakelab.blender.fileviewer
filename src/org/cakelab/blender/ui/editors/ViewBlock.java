@@ -14,6 +14,7 @@ public class ViewBlock extends HtmlViewer {
 
 	
 	
+	@SuppressWarnings("deprecation")
 	public void show(BlenderFile blend, Block block) {
 		
 		
